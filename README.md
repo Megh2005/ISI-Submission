@@ -1,6 +1,6 @@
-# Urban Budget Analysis and Development Standards Model :octocat:
+# Urban Budget Analysis and Development
 
-## Overview
+## Overview :octocat:
 
 This project involves the creation of a sophisticated model designed to analyze urban budget expenses and development standards. The model aims to provide insights into how urban areas allocate their financial resources and adhere to development guidelines. By leveraging advanced data analysis techniques, the model can help city planners, policymakers, and researchers make informed decisions to improve urban development and financial management.
 
