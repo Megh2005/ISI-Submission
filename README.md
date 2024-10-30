@@ -59,6 +59,29 @@ The model generates the following outputs:
 - **Development Standards Report**: An assessment of development projects, indicating compliance with standards and guidelines.
 - **Visualizations**: Graphical representations of budget data and development compliance, including bar charts, pie charts, and maps.
 
+## Plots
+![Budget Allocation Chart](https://res.cloudinary.com/dmbxx03vp/image/upload/v1730320267/1_m0gus8.png)
+
+<br/>
+
+![Development Compliance Map](https://res.cloudinary.com/dmbxx03vp/image/upload/v1730320267/7_nushpa.png)
+
+<br/>
+
+![Spending Trends Graph](https://res.cloudinary.com/dmbxx03vp/image/upload/v1730320267/5_gn4ha1.png)
+
+<br/>
+
+![Spending Trends Graph](https://res.cloudinary.com/dmbxx03vp/image/upload/v1730320267/6_e710h4.png)
+
+<br/>
+
+![Spending Trends Graph](https://res.cloudinary.com/dmbxx03vp/image/upload/v1730320268/2_fcxmj4.png)
+
+<br/>
+
+![Spending Trends Graph](https://res.cloudinary.com/dmbxx03vp/image/upload/v1730320268/3_wcehsg.png)
+
 ## Conclusion
 
 The Urban Budget Analysis and Development Standards Model is a powerful tool for analyzing urban financial management and development practices. By providing detailed insights and visualizations, the model helps stakeholders make informed decisions to enhance urban development and ensure efficient use of resources.
