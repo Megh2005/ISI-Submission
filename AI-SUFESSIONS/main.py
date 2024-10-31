@@ -7,7 +7,7 @@ from gtts import gTTS
 # Set up page configuration
 st.set_page_config(
     page_title="Urban Development Expert",
-    page_icon="🌆",
+    page_icon="https://res.cloudinary.com/dmbxx03vp/image/upload/v1730351892/urban-analytics-high-resolution-logo-grayscale-transparent_zseroo.png",
     layout="wide",
     initial_sidebar_state="expanded",
 )
