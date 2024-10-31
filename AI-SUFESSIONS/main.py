@@ -231,7 +231,7 @@ st.markdown(
     '<div class="subheader-style">Select Your Industry</div>', unsafe_allow_html=True
 )
 selected_industry = st.selectbox(
-    "Choose an industry for development suggestions:",
+    "Choose an industry :",
     industry,
     help="Choose the industry for which you want urban development insights.",
 )
@@ -284,7 +284,6 @@ if submit1:
         )
 
         if response:
-            st.write("### Suggested Plan")
             st.success(response)
         else:
             st.error("Failed to generate a suggestion. Please try again.")
