@@ -1,7 +1,8 @@
 import os
 import google.generativeai as genai
 import streamlit as st
-from googletrans import Translator, LANGUAGES
+import tempfile
+from gtts import gTTS
 
 # Set up page configuration
 st.set_page_config(
@@ -11,7 +12,13 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-translator = Translator()
+
+def speak_text(text, lang="en"):
+    tts = gTTS(text=text, lang=lang)
+    with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp_file:
+        tts.save(tmp_file.name)
+        return tmp_file.name
+
 
 # Header section with custom styling
 st.markdown(
@@ -49,7 +56,9 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-genai.configure(api_key="AIzaSyBfizIVkFzxgzC1hE2xoUbjfeq1yWOMIa4")
+genai.configure(
+    api_key="AIzaSyBfizIVkFzxgzC1hE2xoUbjfeq1yWOMIa4",
+)
 
 # List of major urban areas in India
 urban_areas = sorted(
@@ -182,7 +191,7 @@ urban_areas = sorted(
     ]
 )
 
-# City selection with improved section styling
+# City selection
 st.markdown(
     '<div class="subheader-style">Select Your City</div>', unsafe_allow_html=True
 )
@@ -192,6 +201,7 @@ selected_city = st.selectbox(
     help="Choose the city for which you want urban development insights.",
 )
 
+# Industry selection
 industry = sorted(
     [
         "Agriculture",
@@ -226,12 +236,11 @@ industry = sorted(
     ]
 )
 
-# Industry selection with improved section styling
 st.markdown(
     '<div class="subheader-style">Select Your Industry</div>', unsafe_allow_html=True
 )
 selected_industry = st.selectbox(
-    "Choose an industry :",
+    "Choose an industry:",
     industry,
     help="Choose the industry for which you want urban development insights.",
 )
@@ -241,7 +250,6 @@ selected_industry = st.selectbox(
 def get_response_diet(prompt, city, industry):
     try:
         model = genai.GenerativeModel("gemini-1.5-flash")
-        # Create a detailed prompt using the selected city and industry
         combined_prompt = f"""
         You are an expert consultant in urban development and industry establishment. Please provide a detailed procedure for establishing the {industry} industry in {city}. Your response should include the following:
 
@@ -259,9 +267,7 @@ def get_response_diet(prompt, city, industry):
 
         Please ensure that your response is well-structured and detailed, providing actionable insights for stakeholders interested in this industry.
         """
-        response = model.generate_content(
-            combined_prompt
-        )  # Pass the combined prompt directly
+        response = model.generate_content(combined_prompt)
         return response.text if response else None
     except Exception as e:
         st.error(f"Error generating response: {e}")
@@ -270,9 +276,7 @@ def get_response_diet(prompt, city, industry):
 
 # Add interactive button with icon
 submit1 = st.button(
-    "💡 Get Suggestions",
-    key="get_suggestions",
-    help="Click to generate urban development suggestions",
+    "💡 Get Suggestions", help="Click to generate urban development suggestions"
 )
 
 if submit1:
@@ -285,12 +289,10 @@ if submit1:
 
         if response:
             st.success(response)
+            st.info(
+                "Made with ❤️ by [Megh Deb](https://github.com/Megh2005) & [Srinath Sahu](https://github.com/Srinath-Sahu). Built this for the upliftment of society in urban welfare domain. We hope you find it useful!"
+            )
         else:
             st.error("Failed to generate a suggestion. Please try again.")
 
 st.markdown("---")
-st.markdown(
-    """
-### Made with ❤️ by [Megh Deb](https://github.com/Megh2005) & [Srinath Sahu](https://github.com/Srinath-Sahu)
-"""
-)
