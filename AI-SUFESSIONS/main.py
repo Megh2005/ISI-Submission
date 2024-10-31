@@ -192,22 +192,81 @@ selected_city = st.selectbox(
     help="Choose the city for which you want urban development insights.",
 )
 
+industry = sorted(
+    [
+        "Agriculture",
+        "Automobiles",
+        "Aerospace",
+        "Banking",
+        "Biotechnology",
+        "Construction",
+        "Education",
+        "Electronics",
+        "Energy",
+        "Entertainment",
+        "Fashion",
+        "Finance",
+        "Food and Beverage",
+        "Healthcare",
+        "Hospitality",
+        "Information Technology",
+        "Insurance",
+        "Manufacturing",
+        "Media",
+        "Mining",
+        "Pharmaceuticals",
+        "Real Estate",
+        "Retail",
+        "Telecommunications",
+        "Textiles",
+        "Tourism",
+        "Transportation",
+        "Utilities",
+        "Waste Management",
+    ]
+)
+
+# Industry selection with improved section styling
+st.markdown(
+    '<div class="subheader-style">Select Your Industry</div>', unsafe_allow_html=True
+)
+selected_industry = st.selectbox(
+    "Choose an industry for development suggestions:",
+    industry,
+    help="Choose the industry for which you want urban development insights.",
+)
+
 
 # Define function for getting the response
-def get_response_diet(prompt, input_text):
+def get_response_diet(prompt, city, industry):
     try:
         model = genai.GenerativeModel("gemini-1.5-flash")
-        response = model.generate_content([prompt, input_text])
+        # Create a detailed prompt using the selected city and industry
+        combined_prompt = f"""
+        You are an expert consultant in urban development and industry establishment. Please provide a detailed procedure for establishing the {industry} industry in {city}. Your response should include the following:
+
+        1. **Step-by-Step Procedure**:
+           - Outline the necessary steps to establish the industry, from initial research to operational setup.
+           - Include key considerations such as regulatory requirements, resource allocation, and community engagement.
+
+        2. **Pros**:
+           - List the potential benefits of establishing the {industry} industry in {city}. 
+           - Consider economic, social, and environmental factors.
+
+        3. **Cons**:
+           - Identify the possible drawbacks or challenges associated with establishing the industry in this location.
+           - Discuss issues such as competition, resource availability, and community concerns.
+
+        Please ensure that your response is well-structured and detailed, providing actionable insights for stakeholders interested in this industry.
+        """
+        response = model.generate_content(
+            combined_prompt
+        )  # Pass the combined prompt directly
         return response.text if response else None
     except Exception as e:
         st.error(f"Error generating response: {e}")
         return None
 
-
-# Prompt for the urban development suggestion
-input_prompt_diet = """
-    You are an expert in urban development with extensive knowledge of city planning, infrastructure design, and the social and economic factors influencing urban areas. Assume you are consulting for a city that is experiencing slow growth and facing challenges related to transportation, housing, and green space preservation. Provide insights and actionable recommendations for urban development, focusing on modern approaches like smart city technology, mixed-use zoning, and public-private partnerships. Please also consider environmental impact, community engagement, and resilience against climate change in your response.
-"""
 
 # Add interactive button with icon
 submit1 = st.button(
@@ -218,10 +277,14 @@ submit1 = st.button(
 
 if submit1:
     with st.spinner("Generating Suggestions..."):
-        response = get_response_diet(input_prompt_diet, selected_city)
+        response = get_response_diet(
+            "Generate industry establishment insights.",
+            selected_city,
+            selected_industry,
+        )
 
         if response:
-            st.write("### Suggested Urban Development Plan")
+            st.write("### Suggested Plan")
             st.success(response)
         else:
             st.error("Failed to generate a suggestion. Please try again.")
